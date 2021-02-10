@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark ">
-    <img src="https://down-yuantu.pngtree.com/element_our/bg/20200415/bg/fac991aa1e0ad.png?e=1612357603&st=N2ZhNTBiYTAyM2U1OTMwMzVhYzFjZmY2YTE4Zjc2ZDI&n=%E2%80%94Pngtree%E2%80%94shopping%20on%20mobile_5354478.png" width="50px" height="50px">
+    <img src="https://www.pngitem.com/pimgs/m/467-4675973_web-scrape-ben-reilly-spiderman-logo-hd-png.png" width="50px" height="50px">
 
     <a class="navbar-brand" href="#">Bestbuy</a>
     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link bg-primary" href="index.php">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About us</a>
@@ -22,11 +22,33 @@
             </li>
 
         </ul>
+        <?php 
+        session_start();
+        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
+            echo'
+           <p style="color:white;transform:translate(0%, 33%);"> Welcome ,'.$_SESSION['email'].'</p>
+           <a href="loggedout.php" class="btn btn-primary">Log out</a>
 
-        <!-- Button trigger modal -->
+            Log out
+     </a>
+            ';
+        }
+        else{
+            echo'
+            <!-- Button trigger modal -->
         <button type="button" class="btn btn-light m-1" data-toggle="modal" data-target="#signinModal">
             Sign in
         </button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#signupModal">
+            Sign up
+        </button>
+        ';
+        }
+      
+        
+        ?>
+        
 
         <!-- Modal -->
         <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,10 +88,7 @@
             </div>
         </div>
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary m-1" data-toggle="modal" data-target="#signupModal">
-            Sign up
-        </button>
+      
 
         <!-- Modal -->
         <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -112,6 +131,15 @@
     </div>
 </nav>
 <?php
+      if(isset($_GET['loggedout']) && $_GET['loggedout']==true){
+        echo'
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>hey!</strong> You have been logged out successfully!!! 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>';
+    }
     if(isset($_GET['userexists']) && $_GET['userexists']==true){
         echo'
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -142,7 +170,7 @@
     // a bug need to be fixed here
     // echo var_dump($_GET['loginsucess']);
     // $_GET['loginsucess']=false;
-    if(isset($_GET['loginsucess']) && $_GET['loginsucess']=='true'){
+    if(isset($_GET['loginsuccess']) && $_GET['loginsuccess']=='true'){
         echo'
         <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong>Congratulation</strong> You have been logged in.
@@ -151,10 +179,10 @@
   </button>
 </div>';
     }
-    if(isset($_GET['loginsucess']) && $_GET['loginsucess']=='false'){
+    if(isset($_GET['loginsuccess']) && $_GET['loginsuccess']=='false'){
         echo'
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>Ops!!</strong> You have not been logged in.
+  <strong>Ops!!</strong> Password wrong!!!!
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -164,7 +192,7 @@
     if(isset($_GET['emaildont']) && $_GET['emaildont']==true){
         echo'
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong>Ops</strong> Email does not exist.
+  <strong>Ops!!!!! </strong> Wrong email address.Please check and type correctly!!
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
