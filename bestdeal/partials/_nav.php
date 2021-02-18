@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark ">
-    <img src="https://www.pngitem.com/pimgs/m/467-4675973_web-scrape-ben-reilly-spiderman-logo-hd-png.png" width="50px" height="50px">
 
-    <a class="navbar-brand" href="#">Bestbuy</a>
+    <img src="https://logodix.com/logo/2205832.png" width="50px" height="50px">
+    <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,19 +22,18 @@
             </li>
 
         </ul>
-        <?php 
+        <?php
         session_start();
-        if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
-            echo'
-           <p style="color:white;transform:translate(0%, 33%);"> Welcome ,'.$_SESSION['email'].'</p>
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            echo '
+           <p style="color:white;transform:translate(0%, 33%);"> Welcome ,' . $_SESSION['email'] . '</p>
            <a href="loggedout.php" class="btn btn-primary">Log out</a>
 
-            Log out
+         
      </a>
             ';
-        }
-        else{
-            echo'
+        } else {
+            echo '
             <!-- Button trigger modal -->
         <button type="button" class="btn btn-light m-1" data-toggle="modal" data-target="#signinModal">
             Sign in
@@ -45,10 +44,12 @@
         </button>
         ';
         }
-      
-        
+
+
         ?>
-        
+
+
+  
 
         <!-- Modal -->
         <div class="modal fade" id="signinModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -75,12 +76,12 @@
 
                             </div>
 
-                     
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary float-right">Signin</button>
 
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary float-right">Signin</button>
+
+                            </div>
                         </form>
                     </div>
 
@@ -88,7 +89,7 @@
             </div>
         </div>
 
-      
+
 
         <!-- Modal -->
         <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -131,71 +132,71 @@
     </div>
 </nav>
 <?php
-      if(isset($_GET['loggedout']) && $_GET['loggedout']==true){
-        echo'
+if (isset($_GET['loggedout']) && $_GET['loggedout'] == 'true') {
+    echo '
         <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong>hey!</strong> You have been logged out successfully!!! 
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
-    }
-    if(isset($_GET['userexists']) && $_GET['userexists']==true){
-        echo'
+}
+if (isset($_GET['userexists']) && $_GET['userexists'] == 'true') {
+    echo '
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
   <strong>Ops!</strong> User you were trying to create has already exits!!! please try signup using another email
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
-    }
-    if(isset($_GET['accountCreated']) && $_GET['accountCreated']==true){
-        echo'
+}
+if (isset($_GET['accountCreated']) && $_GET['accountCreated'] == 'true') {
+    echo '
         <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong>Congratulation</strong> The account has been created successfully! Thank you for joining our community.
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
-    }
-    if(isset($_GET['accountCreated']) && $_GET['accountCreated']==false){
-        echo'
+}
+if (isset($_GET['accountCreated']) && $_GET['accountCreated'] == 'false') {
+    echo '
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
   <strong>Ops!</strong> Something went wrong !! Account not created successfully!! Please contact dev team!!!!
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
-    }
-    // a bug need to be fixed here
-    // echo var_dump($_GET['loginsucess']);
-    // $_GET['loginsucess']=false;
-    if(isset($_GET['loginsuccess']) && $_GET['loginsuccess']=='true'){
-        echo'
+}
+// a bug need to be fixed here
+// echo var_dump($_GET['loginsucess']);
+// $_GET['loginsucess']=false;
+if (isset($_GET['loginsuccess']) && $_GET['loginsuccess'] == 'true') {
+    echo '
         <div class="alert alert-success alert-dismissible fade show" role="alert">
   <strong>Congratulation</strong> You have been logged in.
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
-    }
-    if(isset($_GET['loginsuccess']) && $_GET['loginsuccess']=='false'){
-        echo'
+}
+if (isset($_GET['loginsuccess']) && $_GET['loginsuccess'] == 'false') {
+    echo '
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
   <strong>Ops!!</strong> Password wrong!!!!
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
-    }
-   
-    if(isset($_GET['emaildont']) && $_GET['emaildont']==true){
-        echo'
+}
+
+if (isset($_GET['emaildont']) && $_GET['emaildont'] == 'true') {
+    echo '
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
   <strong>Ops!!!!! </strong> Wrong email address.Please check and type correctly!!
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>';
-    }
+}
 ?>

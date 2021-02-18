@@ -29,7 +29,7 @@
             /* background-size:cover; */
         }
         nav {
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color:black;
         }
         
     </style>
@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>BestDeals.com.np</title>
 </head>
 
 <body>

@@ -9,7 +9,10 @@
   <!-- Bootstrap CSS -->
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
 
-  <title>Hello, world!</title>
+  <title>
+    Search result for <?php echo $_GET['q'] ?>
+
+  </title>
 </head>
 
 <body>
@@ -34,20 +37,49 @@
     if ($result) {
       if (mysqli_num_rows($result) != 0) {
         while ($rows = mysqli_fetch_assoc($result)) {
-          //  echo $rows['product_name'] . ' ' . $rows['product_price'] . ' ' . $rows['product_img_url'] . ' ' . $rows['product_link'];
-          echo "
+          $item['id'] = $rows['product_id'];
+          $item['name'] = $rows['product_name'];
+          $item['link'] = $rows['product_link'];
+          $item['img'] = $rows['product_img_url'];
+          $item['price'] = $rows['product_price'];
+          $deals[] = $item;
+        }
+        $num = sizeof($deals);
+        for ($i = 0; $i < $num; $i++) {
+          for ($j = 0; $j < $num; $j++) {
+            if(isset($deals[$j + 1]['price'])){
+              if ((int)$deals[$j]['price'] > (int)$deals[$j + 1]['price']) {
+                $temp = $deals[$j];
+                $deals[$j] = $deals[$j + 1];
+                $deals[$j + 1] = $temp;
+              }
+            }
+           
+          }
+        }
+
+        $g = 0;
+        while ($g < $num) {
+                 //  echo $rows['product_name'] . ' ' . $rows['product_price'] . ' ' . $rows['product_img_url'] . ' ' . $rows['product_link'];
+                 echo "
                  <div class='card m-1 float-left' style='width: 19rem;height:28rem; '>
-                 <img src='" . $rows['product_img_url'] . "' class='card-img-top img-thumbnail border' style='height:55%'>
+                 <img src='" . $deals[$g]['img'] . "' class='card-img-top img-thumbnail ' style='height:55%'>
                      <div class='card-body'>
-                       <h5 class='card-title' style='overflow:hidden'>" . substr($rows['product_name'], 0, 50) . "...</h5>
-                       <p class='card-text'>Rs " . $rows['product_price'] . "</p>
-                       <a href='productpageReview.php?id=".$rows['product_id']."' class='btn btn-primary'>See Details</a>
+                       <h5 class='card-title' style='overflow:hidden'>" . substr( $deals[$g]['name'], 0, 50) . "...</h5>
+                       <p class='card-text'>Rs " . $deals[$g]['price'] . "</p>
+                       <a href='productpageReview.php?id=".$deals[$g]['id']."' class='btn btn-primary'>See Details</a>
                      </div>
                    </div>
                  ";
+          $g++;
         }
       }
     }
+
+
+
+
+
 
 
 

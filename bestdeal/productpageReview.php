@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 
@@ -10,13 +9,13 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Bestdeal.com.np</title>
 </head>
 
 <body>
-<div class='conatiner-fluid font-weight-bold bg-dark'>
-    <?php include('partials/_nav.php') ?>
-  </div>
+    <div class='conatiner-fluid font-weight-bold bg-dark'>
+        <?php include('partials/_nav.php') ?>
+    </div>
 
     <div class="container">
         <div class="container">
@@ -52,59 +51,108 @@
                 }
             }
             ?>
-        <br>
-              
+            <br>
+
             <div class="container">
-                
-<?php
-                if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD']=="POST" ){
-                    $id= $_GET['id'];
-                    $comment= $_POST['comments'];
-                    $insertCommentSql="INSERT INTO `comment` (`comments`, `commeted_by`, `comment_product_id`) VALUES ('".$comment."', '".$_SESSION['email']."', '".$id."');";
-                    $result=mysqli_query($con,$insertCommentSql);
-                    if($result){
-                        // echo 'commented succesfullly';
+
+                <?php
+                if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
+                    if (isset($_POST['delete'])) {
+                        $delteCommentId = $_POST['delete'];
+                        $deltequery = "DELETE FROM `comment` WHERE `comment`.`comment_id` = " . $delteCommentId;
+                        $delteResult = mysqli_query($con, $deltequery);
+                        if ($delteResult) {
+                            echo 'deleted the commet successfully';
+                        } else {
+                            echo 'Not deleted the commet successfully';
+                        }
                     }
-                    else{
-                        echo 'something went wrong ';
+                    if (isset($_POST['updatedComment'])) {
+                        $Updatedcommnet = $_POST['updatedComment'];
+                        $id = $_POST['id'];
+                        $updateSql = 'UPDATE comment SET comments="' . $Updatedcommnet . '" WHERE comment_id=' . $id;
+                        $udResult = mysqli_query($con, $updateSql);
+                        if ($udResult) {
+                            echo 'updated ';
+                        } else {
+                            echo 'not updated';
+                        }
+                    }
+                    if (isset($_POST['comments'])) {
+                        $id = $_GET['id'];
+                        $comment = $_POST['comments'];
+                        $insertCommentSql = "INSERT INTO `comment` (`comments`, `commeted_by`, `comment_product_id`) VALUES ('" . $comment . "', '" . $_SESSION['email'] . "', '" . $id . "');";
+                        $result = mysqli_query($con, $insertCommentSql);
+                        if ($result) {
+                            // echo 'commented succesfullly';
+                        } else {
+                            echo 'something went wrong ';
+                        }
                     }
                 }
 
-        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-            echo '<br><hr><h1 class="py-3">Post a comment</h1>
-        <form action='.$_SERVER["REQUEST_URI"].' method="POST">
+                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+                    echo '<br><hr><h1 class="py-3">Post a comment</h1>
+        <form action=' . $_SERVER["REQUEST_URI"] . ' method="POST">
             <div class="form-group">
                 <p class="lead">Comment</p>                
                 <p>Type a comment</p>
                 <textarea class="form-control" id="describe" name="comments" placeholder="Please be polite and dont use offesive word" rows="3" cols=130%></textarea>
             </div>
-            <button type="submit" class="btn btn-primary mb-3">Post</button>
+            <button type="submit" class="btn btn-primary mb-3 float-right">Post</button>
         </form>';
-        } else {
-            echo '<p class="lead">You must login to post comment.Please kindly login</p>';
-        }?>
+                } else {
+                    echo '<p class="lead">You must login to post comment.Please kindly login</p>';
+                } ?>
+
+
+
+
                 <?php
-           
-
-
-
                 require('./partials/dbcon.php');
                 $sql = 'select * from comment where comment_product_id=' . $id;
                 $result = mysqli_query($con, $sql);
                 if ($result) {
                     if (mysqli_num_rows($result) != 0) {
                         while ($rows = mysqli_fetch_assoc($result)) {
-                            echo '
+
+                            if (isset($_SESSION['email']) && $_SESSION['email'] == $rows['commeted_by']) {
+                                echo '
                          <div class="media mb-3 w-100">
                             <img class="mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdagfNlkCXKS54rDkgY6CjGNtPECsI_SZlKQ&usqp=CAU" width="54px" alt="Generic placeholder image">
                             <div class="media-body ">
-                            <p class="font-weight-bold my-0">'.$rows['commeted_by'].' at ' . $rows['commented_on']. '</p>
+                            <p class="font-weight-bold my-0">' . $rows['commeted_by'] . ' at ' . $rows['commented_on'] . '
+                            </p>
+                            <p id="' . $rows['comment_id'] . '">'  . $rows['comments'] . '</p>
+                            </div>
+                            <div class="float-right mb-5" style="transform: translate(-160%,101%);">
+                            <form action=' . $_SERVER["REQUEST_URI"] . ' class="position-absolute mx-5" method="POST">
+                            <input type="hidden" value="' . $rows['comment_id'] . '" name="delete" class=" p-2">
+                            <button type="submit" class="btn btn-outline-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                          </svg></button>
+                          </form>
+                          
+                          <button onclick="edit(' . $rows['comment_id'] . ')" class="btn btn-outline-success"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                          <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                          <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                        </svg></button>
+                            </div>
+                    
+                        </div>';
+                            } else {
+                                echo '
+                         <div class="media mb-3 w-100">
+                            <img class="mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdagfNlkCXKS54rDkgY6CjGNtPECsI_SZlKQ&usqp=CAU" width="54px" alt="Generic placeholder image">
+                            <div class="media-body ">
+                            <p class="font-weight-bold my-0">' . $rows['commeted_by'] . ' at ' . $rows['commented_on'] . '</p>
                             '  . $rows['comments'] . '
                             </div>
-                        </div>'
-                            ;
+                        </div>';
+                            }
                         }
-                    } if(mysqli_num_rows($result) == 0){
+                    }
+                    if (mysqli_num_rows($result) == 0) {
                         echo '
                             <div class="jumbotron jumbotron-fluid">
                                 <div class="container">
@@ -115,8 +163,8 @@
                             ';
                     }
                 }
-                
-                if(!$result){
+
+                if (!$result) {
                     echo '
                         <div class="jumbotron jumbotron-fluid">
                             <div class="container">
@@ -126,23 +174,30 @@
                         </div>
                         ';
                 }
-                
+
 
                 ?>
             </div>
-
-
-
         </div>
     </div>
     </div>
-
-
+    <script>
+        function edit(a) {
+            console.log(a);
+            comment = document.getElementById(a).innerHTML;
+           document.getElementById('a').innerHTML='<form method="POST"><input type="hidden" value="' + a +
+                '" name="id"><textarea name="updatedComment" rows="3" cols=130%>' + comment +
+                '</textarea><button type="submit">Update</button></form>';
+        }
+    </script>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
