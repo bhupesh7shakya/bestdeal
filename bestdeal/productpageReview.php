@@ -23,6 +23,7 @@
             <?php
             $id = $_GET['id'];
             require('./partials/dbcon.php');
+            echo $id;
             $sql = 'select * from products where product_id=' . $id;
             $result = mysqli_query($con, $sql);
             if ($result) {
@@ -50,12 +51,12 @@
                     }
                 }
             }
-            ?>
+          echo'
             <br>
 
             <div class="container">
-
-                <?php
+            ';
+               
                 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST") {
                     if (isset($_POST['delete'])) {
                         $delteCommentId = $_POST['delete'];
@@ -69,14 +70,15 @@
                     }
                     if (isset($_POST['updatedComment'])) {
                         $Updatedcommnet = $_POST['updatedComment'];
-                        $id = $_POST['id'];
-                        $updateSql = 'UPDATE comment SET comments="' . $Updatedcommnet . '" WHERE comment_id=' . $id;
+                        $Comment_id = $_POST['id'];
+                        $updateSql = 'UPDATE comment SET comments="' . $Updatedcommnet . '" WHERE comment_id=' . $Comment_id;
                         $udResult = mysqli_query($con, $updateSql);
                         if ($udResult) {
-                            echo 'updated ';
+                            // echo 'updated ';
+                            
                             
                         } else {
-                            echo 'not updated';
+                            // echo 'not updated';
                         }
                     }
                     if (isset($_POST['comments'])) {
@@ -102,15 +104,11 @@
             </div>
             <button type="submit" class="btn btn-primary mb-3 float-right">Post</button>
         </form>';
-                } else {
+                } 
+                else {
                     echo '<p class="lead">You must login to post comment.Please kindly login</p>';
-                } ?>
-
-
-
-
-                <?php
-                require('./partials/dbcon.php');
+                } 
+                echo $id;
                 $sql = 'select * from comment where comment_product_id=' . $id;
                 $result = mysqli_query($con, $sql);
                 if ($result) {
@@ -145,11 +143,11 @@
                                 echo '
                          <div class="media mb-3 w-100">
                             <img class="mr-3" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdagfNlkCXKS54rDkgY6CjGNtPECsI_SZlKQ&usqp=CAU" width="54px" alt="Generic placeholder image">
-                            <div class="media-body ">
-                            <p class="font-weight-bold my-0">' . $rows['commeted_by'] . ' at ' . $rows['commented_on'] . '</p>
-                            '  . $rows['comments'] . '
-                            </div>
-                        </div>';
+                                <div class="media-body ">
+                                     <p class="font-weight-bold my-0">' . $rows['commeted_by'] . ' at ' . $rows['commented_on'] . '</p>
+                                     '  . $rows['comments'] . '
+                                </div>
+                         </div>';
                             }
                         }
                     }
@@ -175,8 +173,6 @@
                         </div>
                         ';
                 }
-
-
                 ?>
             </div>
         </div>
@@ -195,6 +191,9 @@
                 '</textarea><button class="float-right btn btn-outline" type="submit">Update</button></form>';
         }
     </script>
+
+
+    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
