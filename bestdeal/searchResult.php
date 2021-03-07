@@ -32,7 +32,7 @@
     <?php
     include('scrapy.php');
     require('./partials/dbcon.php');
-    $sql = 'select * from products where search_keyword="' . $getsSearchQuery . '"';
+    $sql = "SELECT * FROM `products` WHERE `product_name` LIKE '%".$getsSearchQuery."%' OR `search_keyword` LIKE '%".$getsSearchQuery."%'";
     $result = mysqli_query($con, $sql);
     if ($result) {
       if (mysqli_num_rows($result) != 0) {
@@ -44,19 +44,21 @@
           $item['price'] = $rows['product_price'];
           $deals[] = $item;
         }
+        
+        // for sorting using bubble sort
         $num = sizeof($deals);
-        for ($i = 0; $i < $num; $i++) {
-          for ($j = 0; $j < $num; $j++) {
-            if(isset($deals[$j + 1]['price'])){
-              if ((int)$deals[$j]['price'] > (int)$deals[$j + 1]['price']) {
-                $temp = $deals[$j];
-                $deals[$j] = $deals[$j + 1];
-                $deals[$j + 1] = $temp;
-              }
-            }
+        // for ($i = 0; $i < $num; $i++) {
+        //   for ($j = 0; $j < $num; $j++) {
+        //     if(isset($deals[$j + 1]['price'])){
+        //       if ((int)$deals[$j]['price'] > (int)$deals[$j + 1]['price']) {
+        //         $temp = $deals[$j];
+        //         $deals[$j] = $deals[$j + 1];
+        //         $deals[$j + 1] = $temp;
+        //       }
+        //     }
            
-          }
-        }
+        //   }
+        // }
 
         $g = 0;
         while ($g < $num) {
@@ -68,7 +70,9 @@
                        <h5 class='card-title' style='overflow:hidden'>" . substr( $deals[$g]['name'], 0, 50) . "...</h5>
                        <p class='card-text'>Rs " . $deals[$g]['price'] . "</p>
                        <a href='productpageReview.php?id=".$deals[$g]['id']."' class='btn btn-primary'>See Details</a>
-                     </div>
+                       <img src='https://cdn.sastodeal.com/catalog/product/6/1/61gtxur32bl._ac_sl1200_.jpg' class='card-img-top img-thumbnail ' style='width: 12%;height: 20%;margin-left: 40%;'>
+                       
+                       </div>
                    </div>
                  ";
           $g++;
