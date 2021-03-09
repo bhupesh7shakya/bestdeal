@@ -1,5 +1,6 @@
 
 <?php
+echo 'this is scrapy';
 //removing the execution time limit
 set_time_limit(-1);
 
@@ -20,8 +21,8 @@ function filterPrice($price)
    return $FilteredPrice;
 }
 
-$cate = array("Cheese","Storage device","Speaker", "Book", "Earphone", "Headphone", "Phones", "Washing Machine", "Gaming", "Rice Cooker", "Television", "Laptop", "Desktop", "Vaccum", "Camera", "Tablet", "Projector", "Graphics card", "Home Automation", "Cooling pad");
-array_push($cate,$getsSearchQuery);
+// $cate = array("Cheese","Storage device","Speaker", "Book", "Earphone", "Headphone", "Phones", "Washing Machine", "Gaming", "Rice Cooker", "Television", "Laptop", "Desktop", "Vaccum", "Camera", "Tablet", "Projector", "Graphics card", "Home Automation", "Cooling pad");
+
 // echo sizeof($cate) . 'size <br>';
 // foreach ($cate as $getsSearchQuery) {
 
@@ -34,13 +35,14 @@ array_push($cate,$getsSearchQuery);
       $result = mysqli_query($con, $sql);
       if ($result) {
          if (mysqli_num_rows($result) != 0) {
+            echo 'data found in ddatabse';
             while ($rows = mysqli_fetch_assoc($result)) {
                // echo 'data already exist';
                // echo $rows['product_name'] . ' ' . $rows['product_price'] . ' ' . $rows['product_img_url'] . ' ' . $rows['product_link'];
             }
          } else {
             // echo '<br>scraping '.$getsSearchQuery;
-
+            echo 'scraping mode';
             $_search = str_replace(' ', '+', $getsSearchQuery);
             $html = file_get_html('https://www.sastodeal.com/catalogsearch/result/?q=' . $_search);
             if ($html) {
@@ -111,8 +113,8 @@ array_push($cate,$getsSearchQuery);
                   $price = $product->find('span.product-caption-price-new', 0)->plaintext;
                   if (isset($price)) {
                      $replaceSpace = str_replace(' ', '', $price);
-                     $replaceRs = str_replace('.', '', $replaceSpace);
-                     $replaceFloat = str_replace('.00', '', $replaceRs);
+                     $replaceRs = str_replace('.00', '', $replaceSpace);
+                     $replaceFloat = str_replace('.', '', $replaceRs);
                      $replaceRs = str_replace('Rs', '', $replaceFloat);
                      $replaceComma = str_replace(',', '', $replaceRs);
                      $replaceComma = str_replace(',', '', $replaceRs);
@@ -284,7 +286,7 @@ array_push($cate,$getsSearchQuery);
             }
             // for the unlimited memory access
             ini_set('memory_limit', '-1');
-            // print_r($ScrabedDeal);
+            print_r($ScrabedDeal);
             if ($ScrabedDeal == null) {
                echo 'no product found!!';
             } else {
@@ -297,7 +299,7 @@ array_push($cate,$getsSearchQuery);
                   // echo '<br>'.$i;
                   $i++;
                   if ($result) {
-                     // echo 'inserted<br>';
+                     echo 'inserted<br>';
                      
                  
                      mysqli_query($con, "DELETE FROM `products` WHERE `product_price` = '' OR product_name='' or product_img_url='' OR product_link=''");
