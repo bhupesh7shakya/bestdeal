@@ -1,0 +1,14 @@
+https://www.mynepshop.com/product-category/women-fashion/?page,1,Women’s Fashion
+https://www.mynepshop.com/product-category/men-fashion/?page,1 ,Men’s Fashion
+https://www.mynepshop.com/product-category/phones/?page,1 ,Phones & Accessories
+https://www.mynepshop.com/product-category/electronics/?page,1 ,Electronics
+https://www.mynepshop.com/product-category/jewelry-watches/?page,1 ,Jewelry & Watches
+https://www.mynepshop.com/product-category/bags-shoes/?page,1 ,Bags and shoes
+https://www.mynepshop.com/product-category/home-kitchen/?page,1 ,Home and Kitchen
+https://www.mynepshop.com/product-category/babies-kids-moms/?page,1 ,Babies Kids & Moms
+https://www.mynepshop.com/product-category/pets-garden-tools/?page,1 ,Pets Garden and tools
+https://www.mynepshop.com/product-category/beauty-health-hygiene/?page,1 ,Health Hygiene and beauty
+https://www.mynepshop.com/product-category/cars-motocycles/?page,1 ,Cars and Motocycles
+https://www.mynepshop.com/product-category/groceries-household-items/?page,1 ,Groceries and Household items
+https://www.mynepshop.com/product-category/cakes-sweets-flowers/?page,1 ,Cakes Sweets and flowers
+https://www.mynepshop.com/product-category/liquors-soft-drinks/?page,1, Liquours and soft Drink
