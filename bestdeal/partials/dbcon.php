@@ -1,5 +1,5 @@
 <?php
-    $serverName= 'localhost';
+    $serverName= '127.0.0.1';
     $serverUsername='root';
     $serverPassword='';
     $databseName='bestdeal';
