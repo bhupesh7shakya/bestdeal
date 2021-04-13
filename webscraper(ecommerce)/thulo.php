@@ -80,7 +80,7 @@ function thulo($links, $page, $cate)
 
         }
     }
-$myfile = fopen("thulo.txt", "r") or die("Unable to open file!");
+$myfile = fopen("files/thulo.txt", "r") or die("Unable to open file!");
 while (!feof($myfile)) {
     $para = fgets($myfile);
     $link = explode(",", $para);

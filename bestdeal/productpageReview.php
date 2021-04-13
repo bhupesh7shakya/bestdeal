@@ -8,7 +8,28 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .m-1{
+            transition: .6s;
+        transform: scale(1.2);
+            animation: a 2s ease-in-out;
+            
+        }
+        @keyframes a {
+            0%{
+                transform: scale(1);
+                
+            }
+            30%{
+                transform: scale(1.5);
 
+            }
+        }
+        .m-1:hover{
+            margin-left: 100px;
+        transform: scale(1.5);
+        }
+    </style>
     <title>Bestdeal.com.np</title>
 </head>
 

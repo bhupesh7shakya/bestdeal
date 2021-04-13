@@ -16,9 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     session_start();
                     $_SESSION['loggedin']=true;
                     $_SESSION['email']=$row['email'];
+                    if($_SESSION['email']=="admin@admin.com"){
+                        header("location:adminsPanel.php");
+                    }else{
+                        header('location:index.php?loginsuccess=true');
+                        echo 'logged in';
+                    }
 
-                    header('location:index.php?loginsuccess=true');
-                    echo 'logged in';
+                    
                 } else {
                     header('location:index.php?loginsuccess=false');
                     // echo 'failed to logged in wrong password';

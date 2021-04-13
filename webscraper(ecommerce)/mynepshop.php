@@ -67,7 +67,7 @@ function mynepshop($links, $page, $cate)
 
         }
     }
-$myfile = fopen("mynepshop.txt", "r") or die("Unable to open file!");
+$myfile = fopen("files/mynepshop.txt", "r") or die("Unable to open file!");
 while (!feof($myfile)) {
     $para = fgets($myfile);
     $link = explode(",", $para);
