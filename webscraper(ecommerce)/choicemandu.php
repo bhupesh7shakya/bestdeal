@@ -53,7 +53,7 @@ function choicemandu($link, $page, $cate)
 
 }
 
-$myfile = fopen("files/choicemandu.txt", "r") or die("Unable to open file!");
+$myfile = fopen("choicemandu.txt", "r") or die("Unable to open file!");
 while (!feof($myfile)) {
     $para = fgets($myfile);
     $link = explode(",", $para);

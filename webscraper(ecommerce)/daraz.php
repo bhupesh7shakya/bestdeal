@@ -96,7 +96,7 @@ function daraz($links, $page, $cate)
         echo "\n";
 
     }
-$myfile = fopen("files/daraz.txt", "r") or die("Unable to open file!");
+$myfile = fopen("daraz.txt", "r") or die("Unable to open file!");
 while (!feof($myfile)) {
     $para = fgets($myfile);
     $link = explode(",", $para);

@@ -9,74 +9,21 @@
 </head>
 
 <body>
-    <button onclick="ajax(true)">start</button>
-    <button onclick="ajax(false)">stop</button>
-    this i<p id="i">text will be appear here</p>
-    <!-- this a<p id="d">this a</p>
-
+    <button onclick="ajax()">click me</button>
+    <p id="i">text will be appear here</p>
     <script>
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        async function ajax(b) {
-            // console.log("clicked" + a)
-            if (b == true) {
-                document.getElementById('d').innerHTML = "true"
-            }
-            else {
-                document.getElementById('d').innerHTML = "false"
-
-            }
-            a = document.getElementById('d').innerHTML
-            console.log(typeof a)
-            i = 0
-            while (a === "true") {
-                if (a === "true") {
-                    console.log("infinite")
-                    document.getElementById('i').innerHTML = i
-                    i++
-                    await sleep(1000)
-                }
-                else {
-                    console.log("stoped")
-                    document.getElementById('i').innerHTML = "stoped"
-                    await sleep(1000)
-
-                    break
-
-                }
-         
-            }
-            console.log("stoped")
-                    document.getElementById('i').innerHTML = "stodsfsdped"
-                    await sleep(1000)
-
-        } -->
-
-
-
-
-
-<script>
-    function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }
-         function ajax(a) {
-     
-            console.log("called"+a);
+        function ajax() {
+            console.log("called");
             xhttp = new XMLHttpRequest()
 
-            xhttp.open("get", "a.php?loop="+a, "true")
+            xhttp.open("get", "a.txt", "true")
 
-            xhttp.onreadystatechange =function() {
-
-                // await sleep(2000)
-                
+            xhttp.onreadystatechange = function() {
                 document.getElementById('i').innerHTML = this.responseText;
-                console.log(this.responseText)
             }
 
             xhttp.send()
+
 
         }
     </script>

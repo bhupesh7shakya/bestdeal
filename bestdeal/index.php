@@ -7,15 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
    
-        .f {
+        .forms {
+
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            transition: 1s;
-            /* animation: a 3s ease-in-out ; */
         }
-    
 
         .button {
             position: absolute;
@@ -25,7 +23,7 @@
 
         }
         body{
-            background-image: url('https://source.unsplash.com/1600x900/?ecommerce,shopping,bestbuy');
+            background-image: url('https://source.unsplash.com/1600x900/?black,tech,apple,samsung,clothes,ecommerce,toy,mi,huawei,programming,households');
             /* image-rendering: pixelated; */
             background-repeat: no-repeat;
             /* background-size:cover; */
@@ -50,9 +48,9 @@
             <div class="container">
 
                 <form class="form-inline my-2 my-lg-0" method="POST" action="searchEngine.php">
-                    <input class="f forms form-control mr-sm-2  w-75 p-3" type="search" name="search" placeholder="Search"
+                    <input class="forms form-control mr-sm-2 w-75 p-3" type="search" name="search" placeholder="Search"
                         aria-label="Search">
-                    <button class="f submit button text-light btn btn-outline-dark bg-dark font-weight-bold my-2 my-sm-0 px-5 py-3"
+                    <button class="submit button text-light btn btn-outline-dark bg-dark font-weight-bold my-2 my-sm-0 px-5 py-3"
                         type="submit">Search</button>
                 </form>
             </div>

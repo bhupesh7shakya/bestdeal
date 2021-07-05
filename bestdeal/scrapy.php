@@ -6,9 +6,9 @@ set_time_limit(-1);
 //sastodeal
 include './lib/simple_html_dom.php';
 require './partials/dbcon.php';
-// echo 'this is scrapy';
+echo 'this is scrapy';
 $getsSearchQuery = $_GET['q'];
-// $getsSearchQuery = 'mobile';
+// $getsSearchQuery = 'machine gun';
 function filterPrice($price)
 {
    $replaceRu = str_replace('रू', '', $price);
@@ -28,11 +28,11 @@ function filterPrice($price)
       $result = mysqli_query($con, $sql);
       if ($result) {
          if (mysqli_num_rows($result) != 0) {
-            // echo '<br>data already exist in db<br>';
-            while ($rows = mysqli_fetch_assoc($result)) {
-               // echo 'data already exist';
-               // echo $rows['product_name'] . ' ' . $rows['product_price'] . ' ' . $rows['product_img_url'] . ' ' . $rows['product_link'];
-            }
+            echo '<br>data already exist in db<br>';
+            // while ($rows = mysqli_fetch_assoc($result)) {
+            //    // echo 'data already exist';
+            //    // echo $rows['product_name'] . ' ' . $rows['product_price'] . ' ' . $rows['product_img_url'] . ' ' . $rows['product_link'];
+            // }
          } else {
             echo '<br>scraping '.$getsSearchQuery;
 
@@ -163,56 +163,56 @@ function filterPrice($price)
             }
             // is on matanatice
             // mynepshop
-            // $html = file_get_html('https://myshopnepal.com/?s=' . $_search . '&post_type=product&v=8bc2afe7028c');
-            // /// Find all article blocks
-            // if($html) {
-            //    foreach ($html->find('div.prod-row') as $product) {
-            //       // echo $product;
-            //       $image = $product->find('img', 0);
-            //       if (isset($image)) {
-            //          $doc = str_get_html($image);
-            //          $item['image'] = $doc->find('img', 0)->getAttribute('data-src');
-            //          //basically it was store in $data in this website while finding src of image it save data-src which causes the no photo output
-            //          //for example: link of this website is <img class="r" data-src="link" > while saving from scrape so to remove or replace it from nothing w
-            //          // we have used string replace fucntion which first takes str_replace(find,replace,string,count)
-            //       }
-            //       else{
-            //          $item['image']='nothing';
-            //       }
+            $html = file_get_html('https://myshopnepal.com/?s=' . $_search . '&post_type=product&v=8bc2afe7028c');
+            /// Find all article blocks
+            if($html) {
+               foreach ($html->find('div.prod-row') as $product) {
+                  // echo $product;
+                  $image = $product->find('img', 0);
+                  if (isset($image)) {
+                     $doc = str_get_html($image);
+                     $item['image'] = $doc->find('img', 0)->getAttribute('data-src');
+                     //basically it was store in $data in this website while finding src of image it save data-src which causes the no photo output
+                     //for example: link of this website is <img class="r" data-src="link" > while saving from scrape so to remove or replace it from nothing w
+                     // we have used string replace fucntion which first takes str_replace(find,replace,string,count)
+                  }
+                  else{
+                     $item['image']='nothing';
+                  }
 
 
-            //       $price = $product->find('span', 0);
-            //       if (isset($price)) {
-            //          $replaceSpace = str_replace(' ', '', $price->plaintext);
-            //          $replaceRs = str_replace('Rs.', '', $replaceSpace);
-            //          $replaceFloat = str_replace('.00', '', $replaceRs);
-            //          $replaceRs = str_replace('Rs', '', $replaceFloat);
-            //          $replaceComma = str_replace(',', '', $replaceRs);
-            //          $replaceComma = str_replace(',', '', $replaceRs);
-            //          $item['price'] = $replaceComma;
-            //       }
-            //       else{
-            //          $item['price']='nothing';
-            //       }
+                  $price = $product->find('span', 0);
+                  if (isset($price)) {
+                     $replaceSpace = str_replace(' ', '', $price->plaintext);
+                     $replaceRs = str_replace('Rs.', '', $replaceSpace);
+                     $replaceFloat = str_replace('.00', '', $replaceRs);
+                     $replaceRs = str_replace('Rs', '', $replaceFloat);
+                     $replaceComma = str_replace(',', '', $replaceRs);
+                     $replaceComma = str_replace(',', '', $replaceRs);
+                     $item['price'] = $replaceComma;
+                  }
+                  else{
+                     $item['price']='nothing';
+                  }
 
-            //       $details = $product->find('a.product-name', 0);
-            //       if (isset($details)) {
-            //          $item['details'] = $details->plaintext;
-            //       }
-            //       else{
-            //          $item['details']='nothing';
-            //       }
+                  $details = $product->find('a.product-name', 0);
+                  if (isset($details)) {
+                     $item['details'] = $details->plaintext;
+                  }
+                  else{
+                     $item['details']='nothing';
+                  }
 
-            //       $link = $product->find('a.product_img_link', 0);
-            //       if (isset($link)) {
-            //          $item['link'] = $link->href;
-            //       }
-            //       else{
-            //          $item['link']='nothing';
-            //       }
-            //       $ScrabedDeal[] = $item;
-            //    }
-            // }
+                  $link = $product->find('a.product_img_link', 0);
+                  if (isset($link)) {
+                     $item['link'] = $link->href;
+                  }
+                  else{
+                     $item['link']='nothing';
+                  }
+                  $ScrabedDeal[] = $item;
+               }
+            }
 
             //style97
             $html = file_get_html('https://www.style97.com/?search_category=&s=' . $_search . '&search_posttype=product');
@@ -392,7 +392,6 @@ function filterPrice($price)
                   $ScrabedDeal[] = $item;
                }
             }
-            print_r($ScrabedDeal);
             if(isset($ScrabedDeal)){
                ini_set('memory_limit', '-1');
                // print_r($ScrabedDeal);
@@ -404,7 +403,7 @@ function filterPrice($price)
                   $i = 0;
                   while ($i < $num) {
                
-                     $insert = "INSERT INTO `products` (`product_name`, `product_price`, `product_img_url`, `product_link`, `created_by_email`, `created_by_user_id`, `created_on`, `search_keyword`, `source`) VALUES ('" . $ScrabedDeal[$i]['details'] . "', '" . $ScrabedDeal[$i]['price'] . "', '" . $ScrabedDeal[$i]['image'] . "', '" . $ScrabedDeal[$i]['link'] . "', 'admin@admin.com', '1', current_timestamp(), '" . $getsSearchQuery . "','test')";
+                     $insert = "INSERT INTO `products` (`product_name`, `product_price`, `product_img_url`, `product_link`, `created_by_email`, `created_by_user_id`, `created_on`, `search_keyword`) VALUES ('" . $ScrabedDeal[$i]['details'] . "', '" . $ScrabedDeal[$i]['price'] . "', '" . $ScrabedDeal[$i]['image'] . "', '" . $ScrabedDeal[$i]['link'] . "', 'admin@admin.com', '1', current_timestamp(), '" . $getsSearchQuery . "')";
                      $result = mysqli_query($con, $insert);
                      // echo '<br>'.$i;
                      $i++;
@@ -414,7 +413,7 @@ function filterPrice($price)
                         mysqli_query($con, "DELETE FROM `products` WHERE `product_price` = '' OR product_name='' or product_img_url='' OR product_link=''");
                
                      } else {
-                        echo 'wrong query<br>';
+                        // echo 'wrong query<br>';
                      }
                   }
                }
